@@ -4,7 +4,8 @@
   "description": "a simple drum machine using react",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": " babel index.js -o app.js && sass styles/app.sass styles/app.css "
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/Efe-Onoh/drum-machine/issues"
   },
-  "homepage": "https://github.com/Efe-Onoh/drum-machine#readme"
+  "homepage": "https://github.com/Efe-Onoh/drum-machine#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "sass": "^1.43.2"
+  }
 }
