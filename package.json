@@ -1,0 +1,19 @@
+{
+  "name": "drum-machine",
+  "version": "1.0.0",
+  "description": "a simple drum machine using react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Efe-Onoh/drum-machine.git"
+  },
+  "author": "Efe Onoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Efe-Onoh/drum-machine/issues"
+  },
+  "homepage": "https://github.com/Efe-Onoh/drum-machine#readme"
+}
