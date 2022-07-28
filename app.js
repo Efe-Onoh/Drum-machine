@@ -22,67 +22,201 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-//React up and running
-var HeaderComponent = function HeaderComponent(props) {
-  return /*#__PURE__*/React.createElement("header", {
-    id: "header",
-    "class": "row g-0 justify-content-center"
-  }, /*#__PURE__*/React.createElement("h1", {
-    id: "title",
-    "class": "col-4 p-3 text-center "
-  }, "Markdown Previewer"));
-}; //editor child component 
+// !!! IMPORTANT README:
+// You may add additional external JS and CSS as needed to complete the project, however the current external resource MUST remain in place for the tests to work. BABEL must also be left in place. 
 
+/***********
+INSTRUCTIONS:
+  - Select the project you would 
+    like to complete from the dropdown 
+    menu.
+  - Click the "RUN TESTS" button to
+    run the tests against the blank 
+    pen.
+  - Click the "TESTS" button to see 
+    the individual test cases. 
+    (should all be failing at first)
+  - Start coding! As you fulfill each
+    test case, you will see them go   
+    from red to green.
+  - As you start to build out your 
+    project, when tests are failing, 
+    you should get helpful errors 
+    along the way!
+    ************/
+// PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
+// Once you have read the above messages, you can delete all comments. 
+//Jquery up and running
+$(document).ready(function () {}); //React up and running
 
-var EditorComponent = function EditorComponent(props) {
+var drumPadArr = [{
+  id: "Q",
+  keyCode: 81,
+  name: "Heater-1",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+}, {
+  id: "W",
+  keyCode: 87,
+  name: "Heater-2",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"
+}, {
+  id: "E",
+  keyCode: 69,
+  name: "Heater-3",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"
+}, {
+  id: "A",
+  keyCode: 65,
+  name: "Heater-4",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"
+}, {
+  id: "S",
+  keyCode: 83,
+  name: "Clap",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"
+}, {
+  id: "D",
+  keyCode: 68,
+  name: "Open-HH",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"
+}, {
+  id: "Z",
+  keyCode: 90,
+  name: "Kick-n'-Hat",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"
+}, {
+  id: "X",
+  keyCode: 88,
+  name: "Kick",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"
+}, {
+  id: "C",
+  keyCode: 67,
+  name: "Closed-HH",
+  source: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"
+}]; //display component
+
+var DisplayComponent = function DisplayComponent(props) {
   return /*#__PURE__*/React.createElement("div", {
+    id: "display",
     "class": "col"
   }, /*#__PURE__*/React.createElement("h2", {
     "class": ""
-  }, "Editor"), /*#__PURE__*/React.createElement("textarea", {
-    id: "editor",
-    "class": "w-100 h-50",
-    onChange: props.update
-  }, props.content));
-}; //content is passed as props to PreviewComponent from the app which gets it from the redux state after connection is made
+  }, props.audioClipName));
+}; //DrumPad Component
 
 
-var PreviewComponent = function PreviewComponent(props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: ""
-  }, "Preview"), /*#__PURE__*/React.createElement("div", {
-    id: "preview",
-    className: "p-3",
-    dangerouslySetInnerHTML: {
-      __html: marked(props.content)
+var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
+  _inherits(DrumPadComponent, _React$Component);
+
+  var _super = _createSuper(DrumPadComponent);
+
+  function DrumPadComponent(props) {
+    var _this;
+
+    _classCallCheck(this, DrumPadComponent);
+
+    _this = _super.call(this, props);
+    _this.handleKeyPress = _this.handleKeyPress.bind(_assertThisInitialized(_this));
+    _this.playAudio = _this.playAudio.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(DrumPadComponent, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener('keydown', this.handleKeyPress);
     }
-  }));
-};
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('keydown', this.handleKeyPress);
+    }
+  }, {
+    key: "handleKeyPress",
+    value: function handleKeyPress(e) {
+      if (e.keyCode === this.props.keyCode) {
+        this.playAudio();
+      }
+    }
+  }, {
+    key: "playAudio",
+    value: function playAudio() {
+      var sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
 
-var App = /*#__PURE__*/function (_React$Component) {
-  _inherits(App, _React$Component);
+      sound.play();
+      this.props.updateDisplay(this.props.name.replace(/-/g, ' '));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("button", {
+        id: this.props.name,
+        className: "drum-pad",
+        onClick: this.playAudio
+      }, /*#__PURE__*/React.createElement("p", null, this.props.id), /*#__PURE__*/React.createElement("audio", {
+        id: this.props.id,
+        src: this.props.source,
+        className: "clip"
+      }));
+    }
+  }]);
 
-  var _super = _createSuper(App);
+  return DrumPadComponent;
+}(React.Component); //drumPad container component
+
+
+var DrumPadContainerComponent = function DrumPadContainerComponent(props) {
+  var drumPadList = props.item.map(function (item) {
+    return /*#__PURE__*/React.createElement(DrumPadComponent, {
+      id: item.id,
+      name: item.name,
+      source: item.source,
+      keyCode: item.keyCode,
+      updateDisplay: props.updateDisplay
+    }) //for every element in array, create a drumPad and store passing props id, name and source to the component.
+    ;
+  });
+  return /*#__PURE__*/React.createElement("div", null, drumPadList) //div is necessary because ele tranforms to multiple elements and multiple elements must be wrapped in one to be returned in JSX
+  ;
+}; //story 4
+
+
+var App = /*#__PURE__*/function (_React$Component2) {
+  _inherits(App, _React$Component2);
+
+  var _super2 = _createSuper(App);
 
   function App(props) {
+    var _this2;
+
     _classCallCheck(this, App);
 
-    return _super.call(this, props);
+    _this2 = _super2.call(this, props);
+    _this2.state = {
+      display: 'click a button'
+    };
+    _this2.updateDisplay = _this2.updateDisplay.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
   _createClass(App, [{
+    key: "updateDisplay",
+    value: function updateDisplay(name) {
+      this.setState({
+        display: name
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement("div", {
-        id: "drum-machine",
-        className: "row m-3"
-      }, /*#__PURE__*/React.createElement(HeaderComponent, null), /*#__PURE__*/React.createElement(EditorComponent, {
-        content: this.props.value,
-        update: this.updateEditor
-      }), /*#__PURE__*/React.createElement(PreviewComponent, {
-        content: this.props.value
+        id: "drum-machine"
+      }, /*#__PURE__*/React.createElement(DisplayComponent, {
+        audioClipName: this.state.display
+      }), /*#__PURE__*/React.createElement(DrumPadContainerComponent, {
+        item: drumPadArr,
+        updateDisplay: this.updateDisplay
       }));
     }
   }]);
@@ -122,15 +256,15 @@ var connect = ReactRedux.connect; //connects state and dispatch of store to reac
 
 var ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(App); //app now has props that include value-connecting redux state, and update-connecting redux action creator, update, which are all just js.
 
-var AppWrapper = /*#__PURE__*/function (_React$Component2) {
-  _inherits(AppWrapper, _React$Component2);
+var AppWrapper = /*#__PURE__*/function (_React$Component3) {
+  _inherits(AppWrapper, _React$Component3);
 
-  var _super2 = _createSuper(AppWrapper);
+  var _super3 = _createSuper(AppWrapper);
 
   function AppWrapper() {
     _classCallCheck(this, AppWrapper);
 
-    return _super2.apply(this, arguments);
+    return _super3.apply(this, arguments);
   }
 
   _createClass(AppWrapper, [{
@@ -146,4 +280,4 @@ var AppWrapper = /*#__PURE__*/function (_React$Component2) {
 }(React.Component);
 
 ;
-ReactDOM.render( /*#__PURE__*/React.createElement(AppWrapper, null), document.querySelector('#root'));
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#root'));
