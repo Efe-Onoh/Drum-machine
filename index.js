@@ -40,58 +40,140 @@ const drumPadArr = [
     {
         id:"Q",
         keyCode: 81,
-        name:"Heater-1",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+        priName:"Heater-1",
+        secName: "Chord-1",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3",
     },
     {
         id:"W",
         keyCode: 87,
-        name:"Heater-2",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"
+        priName:"Heater-2",
+        secName: "Chord-2",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3",
     },
     {
         id:"E",
         keyCode: 69,
-        name:"Heater-3",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"
+        priName:"Heater-3",
+        secName: "Chord-3",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3",
     },
     {
         id:"A",
         keyCode: 65,
-        name:"Heater-4",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"
+        priName:"Heater-4",
+        secName: "Shaker",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3",
     },
     {
         id:"S",
         keyCode: 83,
-        name:"Clap",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"
+        priName:"Clap",
+        secName: "Open-HH",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3",
     },
     {
         id:"D",
         keyCode: 68,
-        name:"Open-HH",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"
+        priName:"Open-HH",
+        secName: "Closed-HH",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3",
     },
     {
         id:"Z",
         keyCode: 90,
-        name:"Kick-n'-Hat",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"
+        priName:"Kick-n'-Hat",
+        secName: "Punchy-Kick",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3",
     },
     {
         id:"X",
         keyCode: 88,
-        name:"Kick",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"
+        priName:"Kick",
+        secName: "Side-Stick",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3",
     },
     {
         id:"C",
         keyCode: 67,
-        name:"Closed-HH",
-        source:"https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"
+        priName:"Closed-HH",
+        secName: "Snare",
+        priSource:"https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+        secSource:"https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3",
     },
 ]
+
+//power indicator component
+// const powerIndicatorComponent = (props) =>{
+//   return (
+//     <div id="power-indicator">
+//       <h3>Power</h3>
+//       <input type="radio" id="power-LED" name="power-led" value="power">
+//       <label for="power-LED">{props.power}</label><br>
+//     </div>
+//   )
+// };
+
+//power indicator component
+const PowerIndicatorComponent = (props) =>{
+
+  const powerOn = {
+    width: '15px',
+    height: '15px',
+    border: '2px #444 solid',
+    borderRadius: '50%',
+    background: 'lime'
+  }
+
+  const powerOff = {
+    width: '15px',
+    height: '15px',
+    border: '2px #444 solid',
+    borderRadius: '50%',
+    background: 'orange'
+  }
+
+  const powerDefault = {
+    width: '15px',
+    height: '15px',
+    border: '2px #444 solid',
+    borderRadius: '50%',
+    background: '#222'
+  }
+
+  return (
+    <div id="power-indicator">
+      <h5 class="">Power</h5>
+      <div id="group-power-LED">
+        <div id="power-on-LED" className="power-LED" style={props.power ? powerOn : powerDefault}></div>
+        <label for="power-LED">on</label>
+        <div id="power-off-LED" className="power-LED" style={props.power ? powerDefault : powerOff}></div>
+        <label for="power-LED">off</label><br/>
+      </div>
+
+      <button id="toggle-power-button" onClick={props.togglePower}>Power</button>
+      
+    </div>
+  )
+};
+
+//Bank Component
+const BankComponent = (props) =>{
+  return (
+    <div id="bank-display">
+      <h5 class="">{props.bank}</h5>
+      <button id="toggle-bank-button" onClick={props.toggleBank}>Bank</button>
+    </div>
+  )
+}
 
 //display component
 const DisplayComponent = (props) =>{
@@ -126,9 +208,20 @@ class DrumPadComponent extends React.Component {
   }
 
   playAudio(){
-    const sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
-    sound.play();
-    this.props.updateDisplay(this.props.name.replace(/-/g, ' '));
+    
+    if(this.props.power){
+      if(this.props.bank === "Piano-kit"){
+        const sound = document.getElementById(this.props.secId); //grabs onto the audio element and stores it in sound
+        sound.play();
+        this.props.updateDisplay(this.props.secName.replace(/-/g, ' '));
+      }
+      else{
+        const sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
+        sound.play();
+        this.props.updateDisplay(this.props.priName.replace(/-/g, ' '));
+      }
+      
+    }    
 
   }
 
@@ -136,7 +229,8 @@ class DrumPadComponent extends React.Component {
     return(
       <button id={this.props.name} className="drum-pad" onClick={this.playAudio}> 
         <p>{this.props.id}</p>
-        <audio id={this.props.id} src={this.props.source} className="clip"></audio>
+        <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>
+        <audio id={this.props.secId} src={this.props.secSource} className="clip"></audio>
       </button>
     )
   }
@@ -146,11 +240,16 @@ class DrumPadComponent extends React.Component {
 const DrumPadContainerComponent = (props) =>{
     const drumPadList = props.item.map((item)=>(
       <DrumPadComponent 
-        id={item.id} 
-        name={item.name} 
-        source={item.source} 
+        id={item.id}
+        secId={item.id+props.bank}
+        priName={item.priName} 
+        secName={item.secName}
+        priSource={item.priSource}
+        secSource={item.secSource} 
         keyCode={item.keyCode}
-        updateDisplay={props.updateDisplay} /> //for every element in array, create a drumPad and store passing props id, name and source to the component.
+        updateDisplay={props.updateDisplay}
+        bank={props.bank}
+        power={props.power} /> //for every element in array, create a drumPad and store passing props id, name and priSource to the component.
     )
     )
     return (
@@ -158,17 +257,46 @@ const DrumPadContainerComponent = (props) =>{
     )
 }
 
-//story 4
-
 class App extends React.Component{
   constructor(props){
     super(props);
     
     this.state = {
-      display: 'click a button'
+      power: false,
+      bank: "",
+      display: "Click a button"
     }
 
+    this.togglePower = this.togglePower.bind(this);
+    this.toggleBank = this.toggleBank.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
+  }
+
+  togglePower(){
+    this.setState(state =>({
+      power: !state.power
+    }))
+  }
+
+  toggleBank(){
+    this.setState(state =>{
+      if(state.power){
+        if(state.bank === "Heater-kit"){
+          return({
+            bank: "Piano-kit",
+            display: "Piano-kit"
+          })
+        }
+        else{
+          return({
+            bank: "Heater-kit",
+            display: "Heater-kit"
+          })
+        }
+      }
+      
+    })
+
   }
 
   updateDisplay(name){
@@ -181,7 +309,9 @@ class App extends React.Component{
     return(
       <div id="drum-machine" >
         <DisplayComponent audioClipName={this.state.display}/>
-        <DrumPadContainerComponent item={drumPadArr} updateDisplay={this.updateDisplay}/>
+        <DrumPadContainerComponent item={drumPadArr} updateDisplay={this.updateDisplay} bank={this.state.bank} power={this.state.power}/>
+        <PowerIndicatorComponent power={this.state.power} togglePower={this.togglePower}/>
+        <BankComponent power={this.state.power} toggleBank={this.toggleBank} bank={this.state.bank}/>
       </div>
     ) 
   }
@@ -218,5 +348,5 @@ class AppWrapper extends React.Component {
 
 ReactDOM.render(<App/>, document.querySelector('#root'));
 
-
-//style, implement redux and react redux, make it do a little more like fast response?
+//change sound based on bank state!!!
+//implement redux and react redux, make it do a little more like fast response?

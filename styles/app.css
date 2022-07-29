@@ -1,11 +1,16 @@
 body {
-  color: #F5F8FC;
-  background: #36415C;
+  color: #333333;
+  background: #555555;
 }
 
-#title {
-  color: #212633;
-  background: #F5F8FC;
+#drum-machine {
+  color: #333333;
+  background: #aaaaaa;
+}
+
+.power-LED {
+  display: inline-block;
+  margin: 0px 10px;
 }
 
 #editor {
