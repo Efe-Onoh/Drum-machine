@@ -210,14 +210,13 @@ class DrumPadComponent extends React.Component {
   playAudio(){
     
     if(this.props.power){
+      const sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
+      sound.play();
+
       if(this.props.bank === "Piano-kit"){
-        const sound = document.getElementById(this.props.secId); //grabs onto the audio element and stores it in sound
-        sound.play();
         this.props.updateDisplay(this.props.secName.replace(/-/g, ' '));
       }
       else{
-        const sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
-        sound.play();
         this.props.updateDisplay(this.props.priName.replace(/-/g, ' '));
       }
       
@@ -229,8 +228,8 @@ class DrumPadComponent extends React.Component {
     return(
       <button id={this.props.name} className="drum-pad" onClick={this.playAudio}> 
         <p>{this.props.id}</p>
-        <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>
-        <audio id={this.props.secId} src={this.props.secSource} className="clip"></audio>
+        {(this.props.bank === "Piano-kit") ? <audio id={this.props.id} src={this.props.secSource} className="clip"></audio> : <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>}
+        
       </button>
     )
   }

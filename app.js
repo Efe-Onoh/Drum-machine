@@ -230,17 +230,13 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
     key: "playAudio",
     value: function playAudio() {
       if (this.props.power) {
-        if (this.props.bank === "Piano-kit") {
-          var sound = document.getElementById(this.props.secId); //grabs onto the audio element and stores it in sound
+        var sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
 
-          sound.play();
+        sound.play();
+
+        if (this.props.bank === "Piano-kit") {
           this.props.updateDisplay(this.props.secName.replace(/-/g, ' '));
         } else {
-          var _sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
-
-
-          _sound.play();
-
           this.props.updateDisplay(this.props.priName.replace(/-/g, ' '));
         }
       }
@@ -252,13 +248,13 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
         id: this.props.name,
         className: "drum-pad",
         onClick: this.playAudio
-      }, /*#__PURE__*/React.createElement("p", null, this.props.id), /*#__PURE__*/React.createElement("audio", {
+      }, /*#__PURE__*/React.createElement("p", null, this.props.id), this.props.bank === "Piano-kit" ? /*#__PURE__*/React.createElement("audio", {
+        id: this.props.id,
+        src: this.props.secSource,
+        className: "clip"
+      }) : /*#__PURE__*/React.createElement("audio", {
         id: this.props.id,
         src: this.props.priSource,
-        className: "clip"
-      }), /*#__PURE__*/React.createElement("audio", {
-        id: this.props.secId,
-        src: this.props.secSource,
         className: "clip"
       }));
     }
