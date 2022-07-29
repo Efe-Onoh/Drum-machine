@@ -301,7 +301,7 @@ var App = /*#__PURE__*/function (_React$Component2) {
     _this2 = _super2.call(this, props);
     _this2.state = {
       power: false,
-      bank: "",
+      bank: "Heater-kit",
       display: "Click a button"
     };
     _this2.togglePower = _this2.togglePower.bind(_assertThisInitialized(_this2));

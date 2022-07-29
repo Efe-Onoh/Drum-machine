@@ -263,7 +263,7 @@ class App extends React.Component{
     
     this.state = {
       power: false,
-      bank: "",
+      bank: "Heater-kit",
       display: "Click a button"
     }
 
