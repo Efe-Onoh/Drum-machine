@@ -226,7 +226,7 @@ class DrumPadComponent extends React.Component {
 
   render(){
     return(
-      <button id={this.props.name} className="drum-pad" onClick={this.playAudio}> 
+      <button id={(this.props.bank === "Piano-kit")? this.props.secName : this.props.priName} className="drum-pad" onClick={this.playAudio}> 
         <p>{this.props.id}</p>
         {(this.props.bank === "Piano-kit") ? <audio id={this.props.id} src={this.props.secSource} className="clip"></audio> : <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>}
         
@@ -347,5 +347,4 @@ class AppWrapper extends React.Component {
 
 ReactDOM.render(<App/>, document.querySelector('#root'));
 
-//change sound based on bank state!!!
 //implement redux and react redux, make it do a little more like fast response?

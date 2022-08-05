@@ -245,7 +245,7 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement("button", {
-        id: this.props.name,
+        id: this.props.bank === "Piano-kit" ? this.props.secName : this.props.priName,
         className: "drum-pad",
         onClick: this.playAudio
       }, /*#__PURE__*/React.createElement("p", null, this.props.id), this.props.bank === "Piano-kit" ? /*#__PURE__*/React.createElement("audio", {
@@ -423,5 +423,4 @@ var AppWrapper = /*#__PURE__*/function (_React$Component3) {
 }(React.Component);
 
 ;
-ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#root')); //change sound based on bank state!!!
-//implement redux and react redux, make it do a little more like fast response?
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#root')); //implement redux and react redux, make it do a little more like fast response?
