@@ -126,24 +126,24 @@ const drumPadArr = [
 const PowerIndicatorComponent = (props) =>{
 
   const powerOn = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
     background: 'lime'
   }
 
   const powerOff = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
-    background: 'orange'
+    background: '#f40'
   }
 
   const powerDefault = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
     background: '#222'
@@ -159,7 +159,7 @@ const PowerIndicatorComponent = (props) =>{
         <label for="power-LED">off</label><br/>
       </div>
 
-      <button id="toggle-power-button" onClick={props.togglePower}>Power</button>
+      <button className="button-class" id="toggle-power-button" onClick={props.togglePower}>Power</button>
       
     </div>
   )
@@ -168,9 +168,9 @@ const PowerIndicatorComponent = (props) =>{
 //Bank Component
 const BankComponent = (props) =>{
   return (
-    <div id="bank-display">
-      <h5 class="">{props.bank}</h5>
-      <button id="toggle-bank-button" onClick={props.toggleBank}>Bank</button>
+    <div id="bank-component">
+      <h5 id="bank-display">{props.bank}</h5>
+      <button className="button-class" id="toggle-bank-button" onClick={props.toggleBank}>Bank</button>
     </div>
   )
 }
@@ -202,15 +202,27 @@ class DrumPadComponent extends React.Component {
   }
 
   handleKeyPress(e) {
-    if (e.keyCode === this.props.keyCode) {
-      this.playAudio();
-    }
+      switch (e.keyCode) {
+        case 32:
+          this.props.toggleBank();
+          break;
+        case 13:
+          this.props.togglePower();
+          break;
+        default:
+          if (e.keyCode === this.props.keyCode) {
+            this.playAudio();
+          }
+          break;
+      }
   }
+
 
   playAudio(){
     
     if(this.props.power){
       const sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
+      sound.currentTime = 0;
       sound.play();
 
       if(this.props.bank === "Piano-kit"){
@@ -226,11 +238,13 @@ class DrumPadComponent extends React.Component {
 
   render(){
     return(
-      <button id={(this.props.bank === "Piano-kit")? this.props.secName : this.props.priName} className="drum-pad" onClick={this.playAudio}> 
+      <div id="drum-pad-gradient">
+        <button id={(this.props.bank === "Piano-kit")? this.props.secName : this.props.priName} className="drum-pad button-class" onClick={this.playAudio}> 
         <p>{this.props.id}</p>
-        {(this.props.bank === "Piano-kit") ? <audio id={this.props.id} src={this.props.secSource} className="clip"></audio> : <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>}
-        
-      </button>
+        {(this.props.bank === "Piano-kit") ? <audio id={this.props.id} src={this.props.secSource} className="clip"></audio> : <audio id={this.props.id} src={this.props.priSource} className="clip"></audio>} 
+        </button>
+      </div>
+      
     )
   }
 }
@@ -248,11 +262,13 @@ const DrumPadContainerComponent = (props) =>{
         keyCode={item.keyCode}
         updateDisplay={props.updateDisplay}
         bank={props.bank}
-        power={props.power} /> //for every element in array, create a drumPad and store passing props id, name and priSource to the component.
+        power={props.power} 
+        toggleBank={props.toggleBank}
+        togglePower={props.togglePower}/> //for every element in array, create a drumPad and store passing props id, name and priSource to the component.
     )
     )
     return (
-        <div>{drumPadList}</div> //div is necessary because ele tranforms to multiple elements and multiple elements must be wrapped in one to be returned in JSX
+        <div id="drum-pad-container">{drumPadList}</div> //div is necessary because ele tranforms to multiple elements and multiple elements must be wrapped in one to be returned in JSX
     )
 }
 
@@ -308,7 +324,7 @@ class App extends React.Component{
     return(
       <div id="drum-machine" >
         <DisplayComponent audioClipName={this.state.display}/>
-        <DrumPadContainerComponent item={drumPadArr} updateDisplay={this.updateDisplay} bank={this.state.bank} power={this.state.power}/>
+        <DrumPadContainerComponent item={drumPadArr} togglePower={this.togglePower} toggleBank={this.toggleBank} updateDisplay={this.updateDisplay} bank={this.state.bank} power={this.state.power}/>
         <PowerIndicatorComponent power={this.state.power} togglePower={this.togglePower}/>
         <BankComponent power={this.state.power} toggleBank={this.toggleBank} bank={this.state.bank}/>
       </div>
@@ -347,4 +363,5 @@ class AppWrapper extends React.Component {
 
 ReactDOM.render(<App/>, document.querySelector('#root'));
 
+//implement power key and bank keys
 //implement redux and react redux, make it do a little more like fast response?

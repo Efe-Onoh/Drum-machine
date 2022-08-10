@@ -126,22 +126,22 @@ var drumPadArr = [{
 
 var PowerIndicatorComponent = function PowerIndicatorComponent(props) {
   var powerOn = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
     background: 'lime'
   };
   var powerOff = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
-    background: 'orange'
+    background: '#f40'
   };
   var powerDefault = {
-    width: '15px',
-    height: '15px',
+    width: '7px',
+    height: '7px',
     border: '2px #444 solid',
     borderRadius: '50%',
     background: '#222'
@@ -165,6 +165,7 @@ var PowerIndicatorComponent = function PowerIndicatorComponent(props) {
   }), /*#__PURE__*/React.createElement("label", {
     "for": "power-LED"
   }, "off"), /*#__PURE__*/React.createElement("br", null)), /*#__PURE__*/React.createElement("button", {
+    className: "button-class",
     id: "toggle-power-button",
     onClick: props.togglePower
   }, "Power"));
@@ -173,10 +174,11 @@ var PowerIndicatorComponent = function PowerIndicatorComponent(props) {
 
 var BankComponent = function BankComponent(props) {
   return /*#__PURE__*/React.createElement("div", {
-    id: "bank-display"
+    id: "bank-component"
   }, /*#__PURE__*/React.createElement("h5", {
-    "class": ""
+    id: "bank-display"
   }, props.bank), /*#__PURE__*/React.createElement("button", {
+    className: "button-class",
     id: "toggle-bank-button",
     onClick: props.toggleBank
   }, "Bank"));
@@ -222,8 +224,21 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleKeyPress",
     value: function handleKeyPress(e) {
-      if (e.keyCode === this.props.keyCode) {
-        this.playAudio();
+      switch (e.keyCode) {
+        case 32:
+          this.props.toggleBank();
+          break;
+
+        case 13:
+          this.props.togglePower();
+          break;
+
+        default:
+          if (e.keyCode === this.props.keyCode) {
+            this.playAudio();
+          }
+
+          break;
       }
     }
   }, {
@@ -232,6 +247,7 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
       if (this.props.power) {
         var sound = document.getElementById(this.props.id); //grabs onto the audio element and stores it in sound
 
+        sound.currentTime = 0;
         sound.play();
 
         if (this.props.bank === "Piano-kit") {
@@ -244,9 +260,11 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("button", {
+      return /*#__PURE__*/React.createElement("div", {
+        id: "drum-pad-gradient"
+      }, /*#__PURE__*/React.createElement("button", {
         id: this.props.bank === "Piano-kit" ? this.props.secName : this.props.priName,
-        className: "drum-pad",
+        className: "drum-pad button-class",
         onClick: this.playAudio
       }, /*#__PURE__*/React.createElement("p", null, this.props.id), this.props.bank === "Piano-kit" ? /*#__PURE__*/React.createElement("audio", {
         id: this.props.id,
@@ -256,7 +274,7 @@ var DrumPadComponent = /*#__PURE__*/function (_React$Component) {
         id: this.props.id,
         src: this.props.priSource,
         className: "clip"
-      }));
+      })));
     }
   }]);
 
@@ -276,11 +294,15 @@ var DrumPadContainerComponent = function DrumPadContainerComponent(props) {
       keyCode: item.keyCode,
       updateDisplay: props.updateDisplay,
       bank: props.bank,
-      power: props.power
+      power: props.power,
+      toggleBank: props.toggleBank,
+      togglePower: props.togglePower
     }) //for every element in array, create a drumPad and store passing props id, name and priSource to the component.
     ;
   });
-  return /*#__PURE__*/React.createElement("div", null, drumPadList) //div is necessary because ele tranforms to multiple elements and multiple elements must be wrapped in one to be returned in JSX
+  return /*#__PURE__*/React.createElement("div", {
+    id: "drum-pad-container"
+  }, drumPadList) //div is necessary because ele tranforms to multiple elements and multiple elements must be wrapped in one to be returned in JSX
   ;
 };
 
@@ -350,6 +372,8 @@ var App = /*#__PURE__*/function (_React$Component2) {
         audioClipName: this.state.display
       }), /*#__PURE__*/React.createElement(DrumPadContainerComponent, {
         item: drumPadArr,
+        togglePower: this.togglePower,
+        toggleBank: this.toggleBank,
         updateDisplay: this.updateDisplay,
         bank: this.state.bank,
         power: this.state.power
@@ -423,4 +447,5 @@ var AppWrapper = /*#__PURE__*/function (_React$Component3) {
 }(React.Component);
 
 ;
-ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#root')); //implement redux and react redux, make it do a little more like fast response?
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector('#root')); //implement power key and bank keys
+//implement redux and react redux, make it do a little more like fast response?

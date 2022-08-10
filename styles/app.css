@@ -1,11 +1,42 @@
+* {
+  margin: 0;
+}
+
 body {
   color: #333333;
-  background: #555555;
+  background: #eee;
+  display: flex;
+  justify-content: center;
+  border: 5px solid blue;
+  height: 96vh;
+  padding: 50px;
 }
 
 #drum-machine {
-  color: #333333;
-  background: #aaaaaa;
+  color: #fff;
+  background: #222;
+  border: 5px outset #999;
+  padding: 30px;
+  width: 500px;
+}
+
+#display {
+  background: #ccc;
+  border: 5px inset #777;
+  padding: 10px;
+}
+
+#bank-component {
+  background: #bbb;
+  border: 2px outset #f10;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+#bank-display {
+  background: #ccc;
+  border: 5px inset #777;
+  padding: 10px;
 }
 
 .power-LED {
@@ -13,20 +44,33 @@ body {
   margin: 0px 10px;
 }
 
-#editor {
-  color: #212633;
-  background: #F5F8FC;
+.button-class {
+  padding: 5px;
 }
 
-#preview {
-  color: #212633;
-  background: #F5F8FC;
+.button-class:hover {
+  background: #ccc;
 }
 
-img {
-  display: block;
-  max-width: 80%;
-  margin: 2rem auto;
+#drum-pad-container {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.drum-pad {
+  width: 100%;
+  height: fit-content;
+  background: #aaa;
+  border: 3px solid #f10;
+}
+
+#drum-pad-gradient {
+  display: inline-flex;
+  justify-content: center;
+  width: 31%;
+  height: fit-content;
+  padding: 4px;
+  margin: 1%;
 }
 
 /*# sourceMappingURL=app.css.map */
