@@ -368,7 +368,7 @@ var App = /*#__PURE__*/function (_React$Component2) {
     value: function render() {
       return /*#__PURE__*/React.createElement("div", {
         id: "drum-machine"
-      }, /*#__PURE__*/React.createElement(DisplayComponent, {
+      }, /*#__PURE__*/React.createElement("h3", null, "MP1513-EO"), /*#__PURE__*/React.createElement(DisplayComponent, {
         audioClipName: this.state.display
       }), /*#__PURE__*/React.createElement(DrumPadContainerComponent, {
         item: drumPadArr,

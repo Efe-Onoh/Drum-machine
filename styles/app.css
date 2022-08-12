@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Poppins:wght@300;400&family=Silkscreen&display=swap");
 * {
   margin: 0;
 }
@@ -19,15 +20,25 @@ body {
   width: 500px;
 }
 
+#drum-machine h3 {
+  font-family: "Orbitron", sans-serif;
+}
+
 #display {
-  background: #ccc;
-  border: 5px inset #777;
+  background: #444;
+  border: 5px inset #888;
   padding: 10px;
+  font-family: "Silkscreen", cursive;
+}
+
+#display h2 {
+  opacity: 1;
+  color: #fff;
 }
 
 #bank-component {
   background: #bbb;
-  border: 2px outset #f10;
+  border: 3px outset #f10;
   padding: 10px;
   margin: 10px 0;
 }
@@ -37,6 +48,13 @@ body {
   opacity: 0.6;
   border: 5px inset #777;
   padding: 10px;
+  margin: 10px 0;
+  font-family: "Silkscreen", cursive;
+}
+
+#bank-display h5 {
+  opacity: 1;
+  color: #fff;
 }
 
 .power-LED {
@@ -62,6 +80,7 @@ body {
   background: #111;
   border: 3px solid #f10;
   border-radius: 2px;
+  font-family: "Poppins", sans-serif;
 }
 
 .drum-pad:hover {

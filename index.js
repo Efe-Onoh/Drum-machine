@@ -325,6 +325,7 @@ class App extends React.Component{
   render(){
     return(
       <div id="drum-machine" >
+        <h3>MP1513-EO</h3>
         <DisplayComponent audioClipName={this.state.display}/>
         <DrumPadContainerComponent item={drumPadArr} togglePower={this.togglePower} toggleBank={this.toggleBank} updateDisplay={this.updateDisplay} bank={this.state.bank} power={this.state.power}/>
         <PowerIndicatorComponent power={this.state.power} togglePower={this.togglePower}/>
