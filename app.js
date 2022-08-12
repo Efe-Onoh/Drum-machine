@@ -175,9 +175,9 @@ var PowerIndicatorComponent = function PowerIndicatorComponent(props) {
 var BankComponent = function BankComponent(props) {
   return /*#__PURE__*/React.createElement("div", {
     id: "bank-component"
-  }, /*#__PURE__*/React.createElement("h5", {
+  }, /*#__PURE__*/React.createElement("div", {
     id: "bank-display"
-  }, props.bank), /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("h5", null, props.bank)), /*#__PURE__*/React.createElement("button", {
     className: "button-class",
     id: "toggle-bank-button",
     onClick: props.toggleBank

@@ -169,7 +169,9 @@ const PowerIndicatorComponent = (props) =>{
 const BankComponent = (props) =>{
   return (
     <div id="bank-component">
-      <h5 id="bank-display">{props.bank}</h5>
+      <div id="bank-display">
+        <h5>{props.bank}</h5>
+      </div>
       <button className="button-class" id="toggle-bank-button" onClick={props.toggleBank}>Bank</button>
     </div>
   )
